@@ -1,7 +1,7 @@
 <template>
   <div>
-    <input type="text" placeholder="Add Band..">
-    <button> Add </button>
+    <input type="text" placeholder="Add Band.." v-model="newBand" @keyup.enter="addBand">
+    <button @click="addBand"> Add </button>
 
     <ul>
       <BandItem v-for="band in bands" :key="band.id" :band="band">
@@ -30,7 +30,14 @@ export default {
         id: 2,
         name: 'ColdPlay',
         songs: ['Yellow', 'Fix you', 'Mylo xyloto']
-      }]
+      }],
+      newBand: ''
+    }
+  },
+  methods: {
+    addBand() {
+      this.bands.push({id: (Math.max(this.bands.map(d=> d.id)) + 1), name: this.newBand, songs: []})
+      this.newBand = '';
     }
   }
 }
